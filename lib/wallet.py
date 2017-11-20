@@ -849,7 +849,7 @@ class Abstract_Wallet(PrintError):
         # Sort the inputs and outputs deterministically
         tx.BIP_LI01_sort()
         # Timelock tx to current height.
-        tx.locktime = self.get_local_height()
+        tx.locktime = 0
         run_hook('make_unsigned_transaction', self, tx)
         return tx
 
@@ -925,7 +925,7 @@ class Abstract_Wallet(PrintError):
             raise BaseException(_('Not enough funds on address.') + '\nTotal: %d satoshis\nFee: %d\nDust Threshold: %d'%(total, fee, self.dust_threshold()))
 
         outputs = [(TYPE_ADDRESS, recipient, total - fee)]
-        locktime = self.get_local_height()
+        locktime = 0
 
         tx = Transaction.from_io(inputs, outputs, locktime=locktime)
         tx.set_rbf(True)
@@ -1068,7 +1068,7 @@ class Abstract_Wallet(PrintError):
                     continue
         if delta > 0:
             raise BaseException(_('Cannot bump fee: could not find suitable outputs'))
-        locktime = self.get_local_height()
+        locktime = 0
         return Transaction.from_io(inputs, outputs, locktime=locktime)
 
     def cpfp(self, tx, fee):
@@ -1086,7 +1086,7 @@ class Abstract_Wallet(PrintError):
         self.add_input_info(item)
         inputs = [item]
         outputs = [(TYPE_ADDRESS, address, value - fee)]
-        locktime = self.get_local_height()
+        locktime = 0
         return Transaction.from_io(inputs, outputs, locktime=locktime)
 
     def add_input_info(self, txin):
