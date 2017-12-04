@@ -1,4 +1,4 @@
-Electrum - Lightweight Bitcoin client
+Electrum - Bitcore (BTX) Claiming Version without locktime
 =====================================
 
 ::
